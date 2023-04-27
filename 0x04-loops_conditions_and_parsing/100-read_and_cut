@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-
-while IFS=':' read -r username x id x x home x; do
-    echo "$username:$id:$home"
+# This script displays the content of the file /etc/passwd in a specified format
+while read -r line
+do
+	username=$(echo "$line" | cut -d ':' -f 1)
+	id=$(echo "$line" | cut -d ':' -f 3)
+	home=$(echo "$line" | cut -d ':' -f 6)
+	echo "$username:$id:$home"
 done < /etc/passwd
