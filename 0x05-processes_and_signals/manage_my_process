@@ -2,8 +2,9 @@
 # Indefinitely writes "I am alive" to the file /tmp/my_process.
 #   Pauses two seconds in between each message.
 
-while true
+i=0
+while [ "$i" -eq 0 ]
 do
-  echo "I am alive!" >> /tmp/my_process
-  sleep 2
+	echo "I am alive!" | sudo tee -a /tmp/my_process > /dev/null
+	sleep 2
 done
