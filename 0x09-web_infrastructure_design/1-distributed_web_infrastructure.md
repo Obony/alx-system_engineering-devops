@@ -1,5 +1,5 @@
 
-##Distributed web infrastructure description :dolphin:
+## Distributed web infrastructure description :dolphin:
 
 This web infrastructure shown in the diagram is an upgrade on the simple LAMP infrastructure as it enhances the efficiency of network by distributing load to a replica server with a load balancer which acts as intermediary between the client and the web servers.
 
