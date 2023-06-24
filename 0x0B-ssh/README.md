@@ -1,7 +1,6 @@
 # SSH
 
-In this project, I became familiar connecting to and working
-with servers using the SSH protocol. I worked on a server
+Learning to connect and work with servers using the SSH protocol, on a server
 provided by Holberton School.
 
 ## Tasks :page_with_curl:
