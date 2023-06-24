@@ -19,7 +19,7 @@ Holberton-provided server.
 * **3. Let me in!**
   * Now that you have successfully connected to your server, we would also like to join the party.
 
-  * Add the SSH public key below to your server so that we can connect using the ubuntu user.
+  * Add the SSH public key below to your server so that we can connect using the `ubuntu` user.
 
 * **4. Client configuration file (w/ Puppet)**
   * [100-puppet_ssh_config.pp](./100-puppet_ssh_config.pp): Let’s practice using Puppet to make changes to our configuration file. Just as in the previous configuration file task, we’d like you to set up your client SSH configuration file so that you can connect to a server without typing a password, using private key `~/.ssh/school`
