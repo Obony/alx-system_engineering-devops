@@ -14,7 +14,7 @@ Holberton-provided server.
 
 * **2. Client configuration file**
   * [2-ssh_config](./2-ssh_config): SSH configuration file configured to use the private key
-`~/.ssh/holberton` and to refuse authentication using a password.
+`~/.ssh/school` and to refuse authentication using a password.
 
 * **4. Client configuration file (w/ Puppet)**
   * [100-puppet_ssh_config.pp](./100-puppet_ssh_config.pp): Let’s practice using Puppet to make changes to our configuration file. Just as in the previous configuration file task, we’d like you to set up your client SSH configuration file so that you can connect to a server without typing a password, using private key `~/.ssh/school`
