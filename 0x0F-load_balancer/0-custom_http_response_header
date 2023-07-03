@@ -9,4 +9,4 @@ sed -i "/^\tlocation \/ {.*/a \\\t \tadd_header X-Served-By \$hostname;" /etc/ng
 sed -i '/^\tserver_name _.*/a \\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 echo "Ceci n'est pas une page" > /var/www/html/error404.html
 sed -i '/^\tserver_name _.*/a \\terror_page 404 /error404.html;' /etc/nginx/sites-available/default
-sudo service nginx restart
+service nginx restart
