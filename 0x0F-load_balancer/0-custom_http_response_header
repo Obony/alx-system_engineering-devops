@@ -7,6 +7,7 @@ new_string2="server {\n\tadd_header X-Served-By $var;"
 
 apt-get update -y
 apt-get install nginx -y
+ufw allow "NGINX HTTP"
 echo "Hello World!" > /usr/share/nginx/html/index.html
 mkdir -p /var/www/html
 echo "Ceci n'est pas une page" > /var/www/html/custom_404.html
