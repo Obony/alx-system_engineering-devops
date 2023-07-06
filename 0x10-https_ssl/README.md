@@ -9,7 +9,8 @@ SSL termination.
   * [0-world_wide_web](./0-world_wide_web): Bash script that displays
   information about subdomains on my configured servers.
   * Usage: `./1-world_wide_web <domain> <subdomain>`
-  * Output: `The subdomain [SUB_DOMAIN] is a [RECORD_TYPE] record and
+  * Output: `The subdomain [SUB_DOMAIN] is a [REC![HTTPS aLX](https://github.com/Obony/alx-system_engineering-devops/assets/117737538/0e8f089f-ed69-448c-a4bb-b2aa9ac3dcc4)
+ORD_TYPE] record and
   points to [DESTINATION]`
   * If no `subdomain` parameter is passed, displays information about the
   subdomains `www`, `lb-01`, `web-01` and `web-02`, in that order.
