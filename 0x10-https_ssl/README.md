@@ -3,6 +3,9 @@
 Learning importance of HTTPS and how it works, configured my HolbertonBnB web servers with `certbot` certificate and HAproxy
 SSL termination.
 
+![HTTPS aLX](https://github.com/Obony/alx-system_engineering-devops/assets/117737538/389fa015-9684-4961-848d-2333cc6ad846)
+
+
 ## Tasks :page_with_curl:
 
 * **0. World wide web**
