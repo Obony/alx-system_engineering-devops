@@ -1,31 +1,17 @@
 #!/usr/bin/env bash
-# Installs, configures, and starts the server
+# This is a script that creates 301 redirection
+# File In a web sever.
 
-apt-get -y update
-apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
-mkdir -p /var/www/html/
-sudo chmod -R 755 /var/www
-echo 'Hello World!' > /var/www/html/index.html
-SERVER_CONFIG=\
-"server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-	root /var/www/html;
-	index index.html index.htm index.nginx-debian.html;
-	server_name _;
-	location / {
-		try_files \$uri \$uri/ =404;
-	}
-	location /redirect_me {
-		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-	}
-}"
+sudo apt-get update
+sudo apt-get install nginx -y
 
-bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
+# Writing or overwriting the default index.html file
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
-if [ "$(pgrep -c nginx)" -le 0 ]; then
-	service nginx start
-else
-	service nginx restart
-fi
+# Storing the string to write in REDIRECTIONZ Variable
+REDIRECTIONZ="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com permanent;"
+
+# Serching for server_name and writing the value of REDIRECTIONZ
+sudo sed -i "s/server_name _;/$REDIRECTIONZ/" /etc/nginx/sites-enabled/default
+
+sudo service nginx restart
