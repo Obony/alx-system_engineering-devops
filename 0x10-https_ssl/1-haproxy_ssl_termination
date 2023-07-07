@@ -35,9 +35,14 @@ defaults
 
 frontend faith_web_frontend
     bind *:80
-    bind 0.0.0.0:443 ssl crt /etc/ssl/private/www.obony.tech.pem
     mode http
     http-request set-header X-Forwarded-Proto http
+    default_backend faith_web_backend
+
+
+frontend faith_web_frontend-https
+    bind *:443 ssl crt /etc/haproxy/certs/www.obony.tech.pem
+    http-request set-header X-Forwarded-Proto https
     default_backend faith_web_backend
 
 
