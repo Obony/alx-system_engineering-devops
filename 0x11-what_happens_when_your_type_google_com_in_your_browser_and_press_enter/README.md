@@ -14,3 +14,9 @@ website] into a browser and hit `Enter`?
   * [1-what_happen_when_diagram](./1-what_happen_when_diagram): Text file
   containing the link to a diagram put togeter to visualize the networking
   process described in my blog.
+
+* **2. Contribute!**
+  * [2-contribution-to_what-happens-when_github_answer](./2-contribution-to_what-happens-when_github_answer): Requirements:
+
+  * The pull request must bring meaningful value (not a typo correction or style improvement)
+  * Share the pull request URL in your answer file
