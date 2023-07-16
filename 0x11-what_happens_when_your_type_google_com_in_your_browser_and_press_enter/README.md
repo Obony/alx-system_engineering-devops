@@ -1,4 +1,4 @@
-# What happens when you type holbertonschool.com in your browser and press Enter
+# What happens when you type google.com in your browser and press Enter
 
 Reviewing and encapsulating networking knowledge and skills I had been learning
 and practicing over the last month, in this project, I wrote a blog post
