@@ -2,6 +2,8 @@
 
 Using `ufw` to configure firewalls on my issued web servers.
 
+![firewall](https://github.com/Obony/alx-system_engineering-devops/assets/117737538/dede205b-961a-4543-bba2-19586bc8f63a)
+
 ## Tasks :page_with_curl:
 
 * **0. Block all incoming traffic but**
@@ -12,3 +14,7 @@ Using `ufw` to configure firewalls on my issued web servers.
 * **1. Port forwarding**
   * [100-port_forwarding](./100-port_forwarding): `ufw` configuration file that
   configures a firewall to redirect port `8080/TCP` to port `80/TCP`.
+
+![holbertonschool-firewall](https://github.com/Obony/alx-system_engineering-devops/assets/117737538/e7175bee-d4bb-4ff2-9f1b-2e55875462fd)
+Have fun LOL!
+
