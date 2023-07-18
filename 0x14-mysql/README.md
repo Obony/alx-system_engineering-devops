@@ -20,41 +20,199 @@
 * Why database backups need to be stored in different physical locations
 * What operation should you regularly perform to make sure that your database backup strategy actually works
 
+The MySQL server provides a database management system with querying and connectivity capabilities, as well as the ability to have excellent data structure and integration with many different platforms.
 
-## [How to] Install mysql 5.7
-Copy the key here to your clipboard
+## Needed Knowledge
 
-`https://dev.mysql.com/doc/refman/5.7/en/checking-gpg-signature.html`
+- [What is a primary-replica cluster](https://www.digitalocean.com/community/tutorials/how-to-choose-a-redundancy-plan-to-ensure-high-availability#sql-replication)
 
-Save it in a file on your machine i.e. `signature.key` and then
+- [MySQL primary replica setup](https://www.digitalocean.com/community/tutorials/how-to-set-up-replication-in-mysql)
 
-`sudo apt-key add signature.key`
+- [Build a robust database backup strategy](https://www.databasejournal.com/ms-sql/developing-a-sql-server-backup-strategy/)
 
-add the apt repo
+- `mysqldump`
 
-`sudo sh -c 'echo "deb http://repo.mysql.com/apt/ubuntu bionic mysql-5.7" >> /etc/apt/sources.list.d/mysql.list'`
+## Installation Guide for mysql 5.7.*
 
-update apt
+- First go to site [dev.mysql.com](https://dev.mysql.com/doc/refman/5.7/en/checking-gpg-signature.html) and copy the PGP PUBLIC KEY just immediately under the _Notice_ section to your clipboard.
 
-`sudo apt-get update`
+- Create a new file in your terminal with a .key extension and paste the PGP PUB KEY copied to clipboard.
+- Then do the following
 
-now check your available versions:
+```bash
+$ sudo apt-key add name_of_file.key
+OK
 
-vagrant@ubuntu-focal:/vagrant$ `sudo apt-cache policy mysql-server`
- mysql-server:
+# adding it to the apt repo
+$ sudo sh -c 'echo "deb http://repo.mysql.com/apt/ubuntu bionic mysql-5.7" >> /etc/apt/sources.list.d/mysql.list'
+
+# updating the apt repo to add the url i added earlier
+$ sudo apt-get update
+
+# now check your available versions
+$ sudo apt-cache policy mysql-server
+mysql-server:
   Installed: (none)
-  Candidate: 8.0.27-0ubuntu0.20.04.1
+  Candidate: 8.0.31-0ubuntu0.20.04.2
   Version table:
-     8.0.27-0ubuntu0.20.04.1 500
-        500 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 Packages
+     8.0.31-0ubuntu0.20.04.2 500
+        500 http://us-east-1.ec2.archive.ubuntu.com/ubuntu focal-updates/main amd64 Packages
+     8.0.31-0ubuntu0.20.04.1 500
         500 http://security.ubuntu.com/ubuntu focal-security/main amd64 Packages
      8.0.19-0ubuntu5 500
-        500 http://archive.ubuntu.com/ubuntu focal/main amd64 Packages
-     5.7.37-1ubuntu18.04 500
+        500 http://us-east-1.ec2.archive.ubuntu.com/ubuntu focal/main amd64 Packages
+     5.7.40-1ubuntu18.04 500
         500 http://repo.mysql.com/apt/ubuntu bionic/mysql-5.7 amd64 Packages
 
-Now install mysql 5.7
+# Now am installing mysql 5.7.*
+$ sudo apt-get install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7* -y
+```
+## Project Task
 
-`sudo apt install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7*`
+### Creating a user and Granting Priviledges in mysql
+```mysql
+$ mysql -root -p
+Password:	/* Type root password
 
-Copyright © 2023 ALX, All rights reserved.
+mysql> CREATE USER 'holberton_user'@'localhost' IDENTIFIED BY 'projectcorrection280hbtn';
+
+mysql> GRANT REPLICATION CLIENT ON *.* TO 'holberton_user'@'localhost';
+
+mysql> FLUSH PRIVILEGES;
+```
+
+### Creating Database, Tables and adding Data to the Tables
+
+```mysql
+
+mysql> CREATE DATABASE db_name_;
+
+-- To verify if db is created
+mysql> SHOW DATABASES;
+
+mysql> USE db_name;
+
+mysql> CREATE TABLE table_name (
+    -> col_1 data_type,
+    -> col_2 data_type);
+-- continue adding more coloums to your taste for me i just added two coloumns
+
+mysql> INSERT INTO table_name VALUES (val_1, val_2);
+
+-- Verify if data was added succesfully do
+mysql> SELECT col_1, col_2 FROM tb_name;
+```
+
+### Setting Up MySQL Replication
+
+- First create replication user and grant replication priviledge ( best practice).
+
+```mysql
+
+mysql> CREATE USER 'replica_user'@'%' IDENTIFIED BY 'replica_user_pwd';
+
+mysql> GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'%';
+
+mysql> FLUSH PRIVILEGES;
+
+-- to verify
+mysql> SELECT user, Repl_slave_priv FROM mysql.user;
+
+mysql> exit
+```
+- Next up you go to the /etc/mysql/mysql.conf.d/mysqld.cnf and comment the bind address and then add this lines to it
+
+```bash
+# By default we only accept connections from localhost
+# bind-address = 127.0.0.1
+server-id = 1
+log_bin = /var/log/mysql/mysql-bin.log
+binlog_do_db = db_name
+```
+- Then you enable incoming connection to port 3306 and restart mysql-server
+```bash
+
+$ sudo ufw allow from 'replica_server_ip' to any port 3306
+
+$ sudo service mysql restart
+```
+- Now log back in to mysql-server to lock db and prepare binary file for replication.
+
+```bash
+$ mysql -uroot -p
+password:
+```
+```mysql
+mysql>
+
+mysql> FLUSH TABLES WITH READ LOCK;
+
+mysql> SHOW MASTER STATUS;
+
++------------------+----------+--------------+------------------+-------------------+
+| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
++------------------+----------+--------------+------------------+-------------------+
+| mysql-bin.000001 |      149 | db           |                  |                   |
++------------------+----------+--------------+------------------+-------------------+
+
+```
+_Take note of the binary log and the position, jot it down or you leave this window open and you open another window to continue_
+
+- you then export the db from myql-server to local machine and then copy this db to replica machine
+
+```bash
+$ mysqldump -uroot -p db_name > export_db_name.sql
+
+$ scp -i _idenetity_file_ export_db_name.sql user@machine_ip:location
+```
+- Then ssh to replica machine ip_adress to import this tables to replica mysql-server
+
+```bash
+
+$ mysql -uroot -p
+password:
+
+
+mysql> CREATE DATABASE db_name;
+
+mysql>exit
+bye
+
+$ mysql -uroot p db_name < export_db_name.sql
+password:
+
+# Now edit the config file in /etc/mysql/mysql.conf.d/mysqld.cnf and then reload mysql-server
+
+```bash
+
+server-id = 2
+log_bin = /var/log/mysql/mysql-bin.log
+binlog_do_db = db_name_from_master_mysql-server
+relay_log = /var/log/mysql/mysql-relay-bin.log
+
+$ sudo service mysql restart
+```
+
+- Login to mysql server in replica to configure replication
+
+```bash
+
+$ mysql -uroot -p
+password:
+
+
+mysql>
+```
+```mysql
+
+mysql> CHANGE MASTER TO
+    -> MASTER_HOST='source_host_name',
+    -> MASTER_USER='replication_user_name',
+    -> MASTER_PASSWORD='replication_password',
+    -> MASTER_LOG_FILE='recorded_log_file_name',
+    -> MASTER_LOG_POS=recorded_log_position;
+
+-- Then you start slave
+mysql> START SLAVE;
+```
+__That's it you've configured replication on mysql, do reach out for any further assistance__
