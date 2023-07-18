@@ -116,7 +116,7 @@ mysql> CREATE USER 'replica_user'@'%' IDENTIFIED BY 'replica_user_pwd';
 
 mysql> GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'%';
 
-mysql> FLUSH PRIVILEGES;
+mysql> GRANT SELECT ON mysql.user TO 'holberton_user'@'localhost';
 
 -- to verify
 mysql> SELECT user, Repl_slave_priv FROM mysql.user;
