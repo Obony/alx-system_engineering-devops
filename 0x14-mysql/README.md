@@ -40,7 +40,7 @@ update apt
 
 now check your available versions:
 
-```vagrant@ubuntu-focal:/vagrant$ sudo apt-cache policy mysql-server
+`vagrant@ubuntu-focal:/vagrant$ sudo apt-cache policy mysql-server
   mysql-server:
   Installed: (none)
   Candidate: 8.0.27-0ubuntu0.20.04.1
@@ -51,7 +51,7 @@ now check your available versions:
      8.0.19-0ubuntu5 500
         500 http://archive.ubuntu.com/ubuntu focal/main amd64 Packages
      5.7.37-1ubuntu18.04 500
-        500 http://repo.mysql.com/apt/ubuntu bionic/mysql-5.7 amd64 Packages```
+        500 http://repo.mysql.com/apt/ubuntu bionic/mysql-5.7 amd64 Packages`
 
 Now install mysql 5.7
 
