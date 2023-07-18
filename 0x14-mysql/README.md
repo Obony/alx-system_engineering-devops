@@ -100,7 +100,10 @@ mysql> CREATE TABLE table_name (
 mysql> INSERT INTO table_name VALUES (val_1, val_2);
 
 -- Verify if data was added succesfully do
-mysql> SELECT col_1, col_2 FROM tb_name;
+mysql> SELECT * FROM tb_name;
+
+-- Grant SELECT priviledges
+GRANT ALL PRIVILEDGES ON db_name.* TO 'holberton_user'@'localhost';
 ```
 
 ### Setting Up MySQL Replication
