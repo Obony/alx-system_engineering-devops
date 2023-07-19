@@ -150,10 +150,10 @@ password:
 ```mysql
 mysql>
 
-mysql> FLUSH TABLES WITH READ LOCK;
+mysql> FLUSH TABLES WITH READ LOCK;(Locks tables)
 
 mysql> SHOW MASTER STATUS;
-
+e.g.;
 +------------------+----------+--------------+------------------+-------------------+
 | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
 +------------------+----------+--------------+------------------+-------------------+
