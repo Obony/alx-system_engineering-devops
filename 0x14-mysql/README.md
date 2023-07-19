@@ -137,7 +137,7 @@ binlog_do_db = db_name
 - Then you enable incoming connection to port 3306 and restart mysql-server
 ```bash
 
-$ sudo ufw allow from 'replica_server_ip' to any port 3306
+$ sudo ufw allow from 'replica_server_ip'(web-02) to any port 3306
 
 $ sudo service mysql restart
 ```
