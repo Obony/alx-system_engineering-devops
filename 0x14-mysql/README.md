@@ -150,7 +150,7 @@ password:
 ```mysql
 mysql>
 
-mysql> FLUSH TABLES WITH READ LOCK;(Locks tables)
+mysql> FLUSH TABLES WITH READ LOCK;(Locks tables)....After show master and importing files(dump),  write UNLOCK TABLES;(to unlock the tables).
 
 mysql> SHOW MASTER STATUS;
 e.g.;
@@ -167,8 +167,9 @@ _Take note of the binary log and the position, jot it down or you leave this win
 
 ```bash
 $ mysqldump -uroot -p db_name > export_db_name.sql
+i.e, sudo mysqldump -u root -p tyrell_corp > tyrell_corp.sql
 
-$ scp -i _idenetity_file_ export_db_name.sql user@machine_ip:location
+$ scp -i _idenetity_file_ export_db_name.sql user@machine_ip:location(here, i used the 0-transfer_file[web-server] to move file to other servers)
 ```
 - Then ssh to replica machine ip_adress to import this tables to replica mysql-server
 
