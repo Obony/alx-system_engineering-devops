@@ -218,4 +218,5 @@ mysql> CHANGE MASTER TO
 -- Then you start slave
 mysql> START SLAVE;
 ```
+When done, back in the servers, restart firewall and mysql.
 __That's it you've configured replication on mysql, do reach out for any further assistance__
