@@ -219,6 +219,8 @@ mysql> CHANGE MASTER TO
     -> MASTER_LOG_FILE='recorded_log_file_name',(e.g, mysql-bin.000001)
     -> MASTER_LOG_POS=recorded_log_position;(e.g, 154)
 
+SHOW SLAVE STATUS\G;
+
 -- Then you start slave
 mysql> START SLAVE;(or STOP SLAVE when necessary)
 ```
