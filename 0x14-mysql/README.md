@@ -213,11 +213,11 @@ mysql>
 ```mysql
 
 mysql> CHANGE MASTER TO
-    -> MASTER_HOST='web-01',
+    -> MASTER_HOST='web-01 IP',
     -> MASTER_USER='replication_user_name',(i.e 'replica_user')
-    -> MASTER_PASSWORD='replication_password',(own password)
-    -> MASTER_LOG_FILE='recorded_log_file_name',
-    -> MASTER_LOG_POS=recorded_log_position;
+    -> MASTER_PASSWORD='replication_password',(own_password)
+    -> MASTER_LOG_FILE='recorded_log_file_name',(e.g, mysql-bin.000001)
+    -> MASTER_LOG_POS=recorded_log_position;(e.g, 154)
 
 -- Then you start slave
 mysql> START SLAVE;(or STOP SLAVE when necessary)
