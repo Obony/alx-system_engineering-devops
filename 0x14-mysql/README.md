@@ -139,7 +139,7 @@ binlog_do_db = db_name
 
 $ sudo ufw allow from 'replica_server_ip'(web-02) to any port 3306
 
-$ sudo service mysql restart
+$ sudo service mysql restart/sudo systemctl restart mysql
 ```
 - Now log back in to mysql-server to lock db and prepare binary file for replication.
 
