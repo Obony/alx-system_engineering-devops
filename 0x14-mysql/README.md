@@ -185,7 +185,7 @@ mysql>exit
 bye
 
 $ mysql -uroot -p db_name < export_db_name.sql
-i.e, sudo mysqldump -uroot -p tyrell_corp < /tmp/tyrell_corp.sql
+-- i.e, sudo mysqldump -uroot -p tyrell_corp < /tmp/tyrell_corp.sql
 password:
 
 # Now edit the config file in /etc/mysql/mysql.conf.d/mysqld.cnf and then reload mysql-server
