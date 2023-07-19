@@ -103,7 +103,9 @@ mysql> INSERT INTO table_name VALUES (val_1, val_2);
 mysql> SELECT * FROM tb_name;
 
 -- Grant SELECT priviledges
-GRANT ALL PRIVILEDGES ON db_name.* TO 'holberton_user'@'localhost';
+GRANT SELECT ON database_name.table_name TO 'holberton_user'@'localhost';
+e.g
+GRANT SELECT ON tyrell_corp.nexus6 TO 'holberton_user'@'localhost';
 ```
 
 ### Setting Up MySQL Replication
