@@ -184,7 +184,8 @@ mysql> CREATE DATABASE db_name;
 mysql>exit
 bye
 
-$ mysql -uroot p db_name < export_db_name.sql
+$ mysql -uroot -p db_name < export_db_name.sql
+i.e, sudo mysqldump -uroot -p tyrell_corp < /tmp/tyrell_corp.sql
 password:
 
 # Now edit the config file in /etc/mysql/mysql.conf.d/mysqld.cnf and then reload mysql-server
@@ -212,14 +213,14 @@ mysql>
 ```mysql
 
 mysql> CHANGE MASTER TO
-    -> MASTER_HOST='source_host_name',
-    -> MASTER_USER='replication_user_name',
-    -> MASTER_PASSWORD='replication_password',
+    -> MASTER_HOST='web-01',
+    -> MASTER_USER='replication_user_name',(i.e 'replica_user')
+    -> MASTER_PASSWORD='replication_password',(own password)
     -> MASTER_LOG_FILE='recorded_log_file_name',
     -> MASTER_LOG_POS=recorded_log_position;
 
 -- Then you start slave
-mysql> START SLAVE;
+mysql> START SLAVE;(or STOP SLAVE when necessary)
 ```
 When done, back in the servers, restart firewall and mysql.
 __That's it you've configured replication on mysql, do reach out for any further assistance__
