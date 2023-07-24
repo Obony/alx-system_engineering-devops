@@ -103,7 +103,9 @@ mysql> INSERT INTO table_name VALUES (val_1, val_2);
 mysql> SELECT * FROM tb_name;
 
 -- Grant SELECT priviledges
-GRANT ALL PRIVILEDGES ON db_name.* TO 'holberton_user'@'localhost';
+GRANT SELECT ON database_name.table_name TO 'holberton_user'@'localhost';
+e.g
+GRANT SELECT ON tyrell_corp.nexus6 TO 'holberton_user'@'localhost';
 ```
 
 ### Setting Up MySQL Replication
@@ -135,9 +137,9 @@ binlog_do_db = db_name
 - Then you enable incoming connection to port 3306 and restart mysql-server
 ```bash
 
-$ sudo ufw allow from 'replica_server_ip' to any port 3306
+$ sudo ufw allow from 'replica_server_ip'(web-02) to any port 3306
 
-$ sudo service mysql restart
+$ sudo service mysql restart/sudo systemctl restart mysql
 ```
 - Now log back in to mysql-server to lock db and prepare binary file for replication.
 
@@ -148,10 +150,10 @@ password:
 ```mysql
 mysql>
 
-mysql> FLUSH TABLES WITH READ LOCK;
+mysql> FLUSH TABLES WITH READ LOCK;(Locks tables)....After show master and importing files(dump),  write UNLOCK TABLES;(to unlock the tables).
 
 mysql> SHOW MASTER STATUS;
-
+e.g.;
 +------------------+----------+--------------+------------------+-------------------+
 | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
 +------------------+----------+--------------+------------------+-------------------+
@@ -165,8 +167,9 @@ _Take note of the binary log and the position, jot it down or you leave this win
 
 ```bash
 $ mysqldump -uroot -p db_name > export_db_name.sql
+i.e, sudo mysqldump -u root -p tyrell_corp > tyrell_corp.sql
 
-$ scp -i _idenetity_file_ export_db_name.sql user@machine_ip:location
+$ scp -i _idenetity_file_ export_db_name.sql user@machine_ip:location(here, i used the 0-transfer_file[web-server] to move file to other servers)
 ```
 - Then ssh to replica machine ip_adress to import this tables to replica mysql-server
 
@@ -181,7 +184,8 @@ mysql> CREATE DATABASE db_name;
 mysql>exit
 bye
 
-$ mysql -uroot p db_name < export_db_name.sql
+$ mysql -uroot -p db_name < export_db_name.sql
+-- i.e, sudo mysqldump -uroot -p tyrell_corp < /tmp/tyrell_corp.sql
 password:
 
 # Now edit the config file in /etc/mysql/mysql.conf.d/mysqld.cnf and then reload mysql-server
@@ -209,13 +213,16 @@ mysql>
 ```mysql
 
 mysql> CHANGE MASTER TO
-    -> MASTER_HOST='source_host_name',
-    -> MASTER_USER='replication_user_name',
-    -> MASTER_PASSWORD='replication_password',
-    -> MASTER_LOG_FILE='recorded_log_file_name',
-    -> MASTER_LOG_POS=recorded_log_position;
+    -> MASTER_HOST='web-01 IP',
+    -> MASTER_USER='replication_user_name',(i.e 'replica_user')
+    -> MASTER_PASSWORD='replication_password',(own_password)
+    -> MASTER_LOG_FILE='recorded_log_file_name',(e.g, mysql-bin.000001)
+    -> MASTER_LOG_POS=recorded_log_position;(e.g, 154)
+
+SHOW SLAVE STATUS\G;
 
 -- Then you start slave
-mysql> START SLAVE;
+mysql> START SLAVE;(or STOP SLAVE when necessary)
 ```
+When done, back in the servers, restart firewall and mysql.
 __That's it you've configured replication on mysql, do reach out for any further assistance__
