@@ -1,5 +1,7 @@
 # Web stack debugging #3
 
+![stagesofdebugging](https://github.com/Obony/alx-system_engineering-devops/assets/117737538/3fbf965b-7a78-4606-8881-f684f17f4341)
+
 This is a project with broken/bugged webstacks in isolated containers,
 and tasked with fixing the web stack to a working state by writing a script automating the commands necessary to fix the
 web stack.
