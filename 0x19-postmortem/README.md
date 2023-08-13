@@ -1,4 +1,6 @@
 ## 0x19. Postmortem ##
+![postmortem](https://github.com/Obony/alx-system_engineering-devops/assets/117737538/1c2b6fde-045f-4035-95c5-168f56b336a3)
+
 
 **Postmortem: Web Stack Outage Incident - August 13, 2023**
 
