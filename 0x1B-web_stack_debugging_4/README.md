@@ -1,5 +1,7 @@
 # Web stack debugging #4
 
+![skyislimitLOLalx](https://github.com/Obony/alx-system_engineering-devops/assets/117737538/3cb61e7d-3e02-4717-95f1-7dda19f1a525)
+
 Dealing with broken/bugged webstacks in isolated containers,
 and tasked with fixing the web stack to a working state.
 
